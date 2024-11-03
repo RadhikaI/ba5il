@@ -1,0 +1,28 @@
+--- frontend/src/components/Hopper.js
++++ frontend/src/components/Hopper.js
+@@ -25,7 +25,6 @@ const Hopper = ({ setActiveProcess, currentPlanet, setTargetPlanet }) => {
+   const [inputValue, setInputValue] = useState("");
+   const inputRef = useRef(null);
+   const containerRef = useRef(null);
+-  const asciiRef = useRef(null);
+ 
+   const handleSubmit = (e) => {
+     e.preventDefault();
+@@ -48,14 +47,10 @@ const Hopper = ({ setActiveProcess, currentPlanet, setTargetPlanet }) => {
+       quit: () => {
+         setActiveProcess(["terminal"]);
+       },
+-      translator: (args) => {
+-        if (args.length != 3)
+-          return "translator <input file name> <output file name> <language>";
+-
+-        setActiveProcess(["translator"].concat(args));
+-      },
+       hopto: (args) => {
+-        if (args.length != 1) return "goto <planet name>";
++        if (args.length != 1) return "hopto <planet name>";
++        setTargetPlanet(args[0]);
++        return "Hopping from " + currentPlanet + " to " + args[0] + "...";
+       },
+     };
+ 

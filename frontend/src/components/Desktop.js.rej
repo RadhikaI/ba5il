@@ -1,0 +1,81 @@
+--- frontend/src/components/Desktop.js
++++ frontend/src/components/Desktop.js
+@@ -19,14 +19,19 @@ const DesktopIcon = ({ name, icon, onOpen }) => {
+   );
+ };
+ 
+-const Taskbar = ({currentPlanet, setCurrentPlanet, targetPlanet, setTargetPlanet}) => {
++const Taskbar = ({
++  currentPlanet,
++  setCurrentPlanet,
++  targetPlanet,
++  setTargetPlanet,
++}) => {
+   const [travelProgress, setTravelProgress] = useState(0.0);
+ 
+   useEffect(() => {
+     if (targetPlanet != currentPlanet) {
+       setTravelProgress(0.0);
+     }
+-  }, [targetPlanet])
++  }, [targetPlanet]);
+ 
+   useEffect(() => {
+     const progressInterval = setInterval(() => {
+@@ -35,7 +40,6 @@ const Taskbar = ({currentPlanet, setCurrentPlanet, targetPlanet, setTargetPlanet
+         if (next >= 1.0) {
+           setCurrentPlanet(targetPlanet);
+           return 1.0;
+-
+         }
+         return Number(next.toFixed(2)); // Reset to 0 when reaching 1
+       });
+@@ -57,9 +61,15 @@ const Taskbar = ({currentPlanet, setCurrentPlanet, targetPlanet, setTargetPlanet
+         </Marquee>
+       </div>
+ 
+-      {currentPlanet != targetPlanet && <div className="w-128 mx-2 shrink-0">
+-        <ProgressBar src={currentPlanet} dst={targetPlanet} progress={travelProgress} />
+-      </div>}
++      {currentPlanet != targetPlanet && (
++        <div className="w-128 mx-2 shrink-0">
++          <ProgressBar
++            src={currentPlanet}
++            dst={targetPlanet}
++            progress={travelProgress}
++          />
++        </div>
++      )}
+ 
+       <div className="text-sm font-mono text-black whitespace-nowrap ml-2">
+         {new Date().toLocaleTimeString()}
+@@ -113,6 +123,7 @@ const Desktop = () => {
+           </div>
+           <div className="max-h-[calc(100vh-100px)] mt-6">
+             <PlanetStatus currentPlanet={currentPlanet} />
++            <div className="flex flex-row"></div>
+             <div className="mt-3">
+               <WaveAnimation />
+             </div>
+@@ -121,10 +132,19 @@ const Desktop = () => {
+             </div>
+           </div>
+           <div className="mt-6 ml-4 mr-4 flex-grow mb-6">
+-            <ProcessManager toLaunch={launchApp} currentPlanet={currentPlanet} setTargetPlanet={setTargetPlanet}/>
++            <ProcessManager
++              toLaunch={launchApp}
++              currentPlanet={currentPlanet}
++              setTargetPlanet={setTargetPlanet}
++            />
+           </div>
+         </div>
+-        <Taskbar currentPlanet={currentPlanet} setCurrentPlanet={setCurrentPlanet} targetPlanet={targetPlanet} setTargetPlanet={setTargetPlanet}/>
++        <Taskbar
++          currentPlanet={currentPlanet}
++          setCurrentPlanet={setCurrentPlanet}
++          targetPlanet={targetPlanet}
++          setTargetPlanet={setTargetPlanet}
++        />
+       </div>
+     </>
+   );

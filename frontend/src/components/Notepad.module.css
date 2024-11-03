@@ -1,0 +1,11 @@
+.editorContent {
+  min-height: 100%;
+  /* Make text more readable against the background */
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Style the actual contenteditable area */
+.editorContent > div {
+  min-height: 100%;
+  padding: 1rem;
+}
